@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739276ce74c3ca948beaa10f4ff9c0d4, type: 3}
+  m_Name: PrefabsGame
+  m_EditorClassIdentifier: 
+  prefabsTray: {fileID: 6410330412239414167, guid: ed17c7c801773634aa4e9f199262fb60, type: 3}
+  circle: {fileID: -3146214594487312713, guid: c7060975177c1084a869f072852c4e1b, type: 3}
+  cubeGreen: {fileID: 9198553769273431603, guid: 1f1b8d979d958d442b05941ec8d53459, type: 3}
+  cubeBlue: {fileID: 7778383019039223869, guid: cb2dda166226676488c31811b177606a, type: 3}

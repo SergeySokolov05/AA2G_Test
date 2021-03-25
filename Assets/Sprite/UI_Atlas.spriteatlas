@@ -32,13 +32,29 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 7a47a23bc44e4824093357fe73001caa, type: 3}
-    totalSpriteSurfaceArea: 0
+    totalSpriteSurfaceArea: 159327
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: df0106a195b2e474c8cfe71d64c5a460, type: 3}
+  - {fileID: 21300000, guid: 5305d4f2c5531a34eb5f0d9ea200f395, type: 3}
+  - {fileID: 21300000, guid: b74795140da8cae4892804ec241cbf3b, type: 3}
+  - {fileID: 21300000, guid: c43c72769e68dd44399b485c3b0f083d, type: 3}
+  - {fileID: 21300000, guid: 8564f27766b174b4998a26367b7e84ae, type: 3}
+  - {fileID: 21300000, guid: ae1e891b40152f54f9855d307cd5da6a, type: 3}
+  - {fileID: 21300000, guid: 836e6acb78bc52543bcb3c04a6f36f8d, type: 3}
+  - {fileID: 21300000, guid: 3d669e1e124fc204696532edfee02de2, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - cell_object3
+  - cell
+  - bar_scale1
+  - bar_scale2
+  - background
+  - win_Restart
+  - cell_object2
+  - cell_object1
   m_RenderDataMap: {}
   m_Tag: UI_Atlas
   m_IsVariant: 0
