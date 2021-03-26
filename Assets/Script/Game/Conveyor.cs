@@ -4,20 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
-using Zenject;
 
 public class Conveyor : MonoBehaviour
 {
-    [Inject] public GameManager GameManager { get; set; }
-
     private float _speed;
     private List<Tray> _listTray;
     private bool _isPush;
-    
+
     private void Start()
     {
         _listTray = new List<Tray>();
-        _speed = GameManager.SettingGame.SpeedConveyor;
+        _speed = GameManager.instance.SettingGame.SpeedConveyor;
         PoolTray();
     }
 
@@ -65,7 +62,7 @@ public class Conveyor : MonoBehaviour
     {
         Transform parentTray = transform.GetChild(0);
         int countTray = 10;
-        var tempPrefabs = GameManager.PrefabsGame.PrefabsTray;
+        var tempPrefabs = GameManager.instance.PrefabsGame.PrefabsTray;
         
         while (countTray > 0)
         {
@@ -76,7 +73,7 @@ public class Conveyor : MonoBehaviour
                 Quaternion.identity,
                 parentTray));
 
-            _listTray[_listTray.Count - 1].GameManager = GameManager;
+            _listTray[_listTray.Count - 1].GameManager = GameManager.instance;
             
             if(countTray != 0)
               _listTray[_listTray.Count - 1].gameObject.SetActive(false);

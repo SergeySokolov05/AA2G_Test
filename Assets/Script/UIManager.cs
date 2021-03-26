@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Button buttCircle;
     [SerializeField] private Button buttCubeGreen;
     [SerializeField] private Button buttCubeBlue;
-    
-    [Inject] public Conveyor Conveyor { get; set;}
+
+    private Conveyor _conveyor;
 
     private void Start()
     {
+        _conveyor = GameManager.instance.Conveyor;
         buttCircle.onClick.AddListener(ButtonItemCircle);
         buttCubeGreen.onClick.AddListener(ButtonItemCubeGreen);
         buttCubeBlue.onClick.AddListener(ButtonItemCubeBlue);
@@ -23,27 +23,27 @@ public class UIManager : MonoBehaviour
     //Unity TriggerEventScene
     public void ButtonPush()
     {
-        Conveyor.PushTray();
+        _conveyor.PushTray();
     }
     
     //Unity TriggerEventScene
     public void ButtonStopPush()
     {
-        Conveyor.StopPushTray();
+        _conveyor.StopPushTray();
     }
 
     private void ButtonItemCircle()
     {
-        Conveyor.FillingObjectTray(Items.circle);
+        _conveyor.FillingObjectTray(Items.circle);
     }
     
     private void ButtonItemCubeGreen()
     {
-        Conveyor.FillingObjectTray(Items.cubeGreen);
+        _conveyor.FillingObjectTray(Items.cubeGreen);
     }
     
     private void ButtonItemCubeBlue()
     {
-        Conveyor.FillingObjectTray(Items.cubeBlue);
+        _conveyor.FillingObjectTray(Items.cubeBlue);
     }
 }

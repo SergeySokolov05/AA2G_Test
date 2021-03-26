@@ -16,3 +16,4 @@ MonoBehaviour:
   circle: {fileID: -3146214594487312713, guid: c7060975177c1084a869f072852c4e1b, type: 3}
   cubeGreen: {fileID: 9198553769273431603, guid: 1f1b8d979d958d442b05941ec8d53459, type: 3}
   cubeBlue: {fileID: 7778383019039223869, guid: cb2dda166226676488c31811b177606a, type: 3}
+  guest: {fileID: 9023563168037578586, guid: d6a66d98a34d9fc4aa2d12d234301fec, type: 3}

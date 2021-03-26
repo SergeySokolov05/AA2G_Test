@@ -9,12 +9,11 @@ public class PrefabsGame : ScriptableObject
     [SerializeField] private IndicatorItems circle;
     [SerializeField] private IndicatorItems cubeGreen;
     [SerializeField] private IndicatorItems cubeBlue;
+    [SerializeField] private Guest guest;
     
     public Tray PrefabsTray => prefabsTray;
-
     public IndicatorItems Circle => circle;
-
     public IndicatorItems CubeGreen => cubeGreen;
-
     public IndicatorItems CubeBlue => cubeBlue;
+    public Guest Guest => guest;
 }
