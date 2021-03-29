@@ -5,19 +5,12 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
-public class Conveyor : MonoBehaviour
+public class Conveyor : MonoBehaviour, IInitializationManager
 {
     private float _speed;
     private List<Tray> _listTray;
     private bool _isPush;
-
-    private void Start()
-    {
-        _listTray = new List<Tray>();
-        _speed = GameManager.instance.SettingGame.SpeedConveyor;
-        PoolTray();
-    }
-
+    
     private void Update()
     {
         if(!_isPush)
@@ -32,6 +25,9 @@ public class Conveyor : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if(!other.CompareTag("Tray"))
+            return;
+        
         for (var i = 0; i < _listTray.Count; i++)
         {
             if (!_listTray[i].gameObject.activeSelf )
@@ -40,6 +36,25 @@ public class Conveyor : MonoBehaviour
                 break;
             }
         }
+    }
+    
+    public void Initialization()
+    {
+        _listTray = new List<Tray>();
+        _speed = GameManager.instance.SettingGame.SpeedConveyor;
+        PoolTray();
+    }
+
+    public void RestartGame()
+    {
+        for (var i = 0; i < _listTray.Count; i++)
+        {
+            _listTray[i].DestroyTray();
+            _listTray[i].IsFilling = false;
+        }
+        
+        _listTray.Last().gameObject.SetActive(true);
+        _listTray.Last().IsFilling = true;
     }
 
     public void PushTray()
@@ -73,10 +88,14 @@ public class Conveyor : MonoBehaviour
                 Quaternion.identity,
                 parentTray));
 
-            _listTray[_listTray.Count - 1].GameManager = GameManager.instance;
+            Tray tray = _listTray[_listTray.Count - 1];
+            tray.Initialization();
+            tray.GameManager = GameManager.instance;
             
             if(countTray != 0)
-              _listTray[_listTray.Count - 1].gameObject.SetActive(false);
+              tray.gameObject.SetActive(false);
         }
     }
+
+
 }

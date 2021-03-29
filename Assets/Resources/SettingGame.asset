@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5c49e2f56076f41b66cffd5c6b80b1, type: 3}
   m_Name: SettingGame
   m_EditorClassIdentifier: 
-  speedConveyor: 1
+  speedConveyor: 2
+  timeGameSeconds: 60

@@ -6,6 +6,8 @@ using UnityEngine;
 public class SettingGame : ScriptableObject
 {
   [SerializeField] private float speedConveyor;
+  [SerializeField] private int timeGameSeconds;
 
   public float SpeedConveyor => speedConveyor;
+  public int TimeGameSeconds => timeGameSeconds;
 }

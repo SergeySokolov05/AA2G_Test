@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Tray : MonoBehaviour
+public class Tray : MonoBehaviour, IInitializationManager
 {
     [SerializeField] private Material materialNormal;
     [SerializeField] private Material materialFill;
@@ -24,42 +26,27 @@ public class Tray : MonoBehaviour
     {
         set => _gameManager = value;
     }
-
+    
     public bool IsStartMove => _isStartMove;
-    public bool IsFilling => _isFilling;
 
-    private void Start()
+    public bool IsFilling
     {
-        _itemses = new Dictionary<Transform, IndicatorItems>();
-        
-        for (var i = 0; i < arrayPositionGameObject.Length; i++)
+        get
         {
-            _itemses.Add(arrayPositionGameObject[i], null);
+            return _isFilling;
         }
-        
-        _rigidbody = GetComponent<Rigidbody>();
-        _startPosition = transform.position;
-        _startQuaternion = transform.rotation;
+        set
+        {
+            _isFilling = value;
+        }
     }
-
+    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            gameObject.SetActive(false);
-            transform.position = _startPosition;
-            transform.rotation = _startQuaternion;
-            _isStartMove = false;
-            _rigidbody.Sleep();
-            
-            for (var i = 0; i < arrayPositionGameObject.Length; i++)
-            {
-                if (_itemses[arrayPositionGameObject[i]] != null)
-                {
-                    Destroy(_itemses[arrayPositionGameObject[i]].gameObject);
-                    _itemses[arrayPositionGameObject[i]] = null;
-                }
-            }
+            GameManager.instance.UiManager.UpdateScoreText(-1);
+            DestroyTray();
         }
 
         _isStartMove = true;
@@ -82,14 +69,28 @@ public class Tray : MonoBehaviour
         meshRenderer.material = materialNormal;
         _isFilling = false;
     }
+    
+    public void Initialization()
+    {
+        _itemses = new Dictionary<Transform, IndicatorItems>();
+        
+        for (var i = 0; i < arrayPositionGameObject.Length; i++)
+        {
+            _itemses.Add(arrayPositionGameObject[i], null);
+        }
+        
+        _rigidbody = GetComponent<Rigidbody>();
+        _startPosition = transform.position;
+        _startQuaternion = transform.rotation;
+    }
 
     public void SetItem(Items items)
     {
         if(!_itemses.ContainsValue(null))
          return;
 
-        var tempItem = _gameManager.SetGameObjectItems(items);
-
+        var tempItem = _gameManager.GetGameObjectItem(items);
+        
         for (var i = 0; i < arrayPositionGameObject.Length; i++)
         {
             if (_itemses[arrayPositionGameObject[i]] == null)
@@ -97,8 +98,48 @@ public class Tray : MonoBehaviour
                 _itemses[arrayPositionGameObject[i]] = tempItem;
                 tempItem.transform.SetParent(arrayPositionGameObject[i]);
                 tempItem.transform.localPosition = Vector3.zero;
+                
+                var tempScale = tempItem.transform.localScale;
+                tempItem.transform.localScale = Vector3.zero;
+                tempItem.transform.DOScale(tempScale, 0.25f).SetEase(Ease.InBounce);
                 break;
             }
         }
     }
+
+    public List<Items> GetItems()
+    {
+        var tempListItems = new List<Items>();
+
+        for (var i = 0; i < _itemses.Count; i++)
+        {
+            var valuePair = _itemses.ElementAt(i);
+            if(valuePair.Value == null)
+                continue;
+            
+            tempListItems.Add(valuePair.Value.ThisTypeItem);
+        }
+
+        return tempListItems;
+    }
+
+    public void DestroyTray()
+    {
+        gameObject.SetActive(false);
+        transform.position = _startPosition;
+        transform.rotation = _startQuaternion;
+        _isStartMove = false;
+        _rigidbody.Sleep();
+            
+        for (var i = 0; i < arrayPositionGameObject.Length; i++)
+        {
+            if (_itemses[arrayPositionGameObject[i]] != null)
+            {
+                Destroy(_itemses[arrayPositionGameObject[i]].gameObject);
+                _itemses[arrayPositionGameObject[i]] = null;
+            }
+        }
+    }
+
+
 }

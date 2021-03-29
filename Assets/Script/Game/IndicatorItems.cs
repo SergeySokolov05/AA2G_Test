@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum Items
 {
-   nullType = -1,
    circle = 0,
    cubeGreen = 1,
    cubeBlue = 2
@@ -13,6 +12,6 @@ public enum Items
 public class IndicatorItems : MonoBehaviour
 {
    [SerializeField] private Items thisTypeItem;
-   
-   
+
+   public Items ThisTypeItem => thisTypeItem;
 }
